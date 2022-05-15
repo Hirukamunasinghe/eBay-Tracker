@@ -5,21 +5,15 @@ import lxml
 from smtplib import SMTP
 
 URL ="https://www.ebay.com/sch/i.html?_from=R40&_trksid=p2380057.m570.l1313&_nkw=bluetooth+speakers&_sacat=0"
-headers ={
-    "Authorization":"Bearer <accessToken>",
-    "Accept-Encoding":"application/gzip",
-    "Accept-Language":"fr-CA",
-    "Accept-Charset":"utf-8",
-    "X-EBAY-C-MARKETPLACE-ID":"EBAY_US",
-    "X-EBAY-C-ENDUSERCTX":"affiliateCampaignId=<ePNCampaignId>,"
-                          "affiliateReferenceId=<referenceId>,"
-                          "contextualLocation=country=<2-digitCountryCode>,"
-                          "zip=<zipCode>,"
-                          "deviceId=<riskCorrelationId>"
+
+headers={
+    "Accept-Language":"en-GB,en-US;q=0.9,en;q=0.8",
+    "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36"
 }
+
 MY_EMAIL ="munasinghehiruka@gmail.com"
 PASSWORD ="Google Company"
-response = requests.get(headers=headers,url=URL)
+response = requests.get(url=URL,headers=headers)
 website_html = response.text
 
 soup = BeautifulSoup(website_html,"lxml")
@@ -29,6 +23,7 @@ soup = BeautifulSoup(website_html,"lxml")
 heading = soup.find(name="span",class_="s-item__price").getText()
 product_price = float(heading.split("$")[1])
 print(product_price)
+
 
 #Sending email
 if product_price<25:
